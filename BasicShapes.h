@@ -12,12 +12,13 @@ public:
 	Rect(game* r_pGame, point ref, int r_hght, int r_wdth);
 	virtual void draw();
 	virtual void calcCorners();
-	//virtual bool isExceeded();
+	virtual bool isExceeded();
 	virtual void rotate();
 	virtual void flip();
 	virtual void resize();
 	point* getUpperLeft();
 	point* getLowerBottom(); // base.upperLeft.move()
+	
 
 };
 

@@ -55,6 +55,8 @@ void grid::draw() const
 		activeShape->draw();
 		
 	}
+
+	
 }
 
 void grid::clearGridArea() const
@@ -88,3 +90,20 @@ void grid::setActiveShape(shape* actShape)
 
 shape* grid::getActiveShape() const { return activeShape; }
 
+void grid::deleteActiveShape()
+{
+	if (activeShape) {
+		delete activeShape;
+		activeShape = nullptr;
+	}
+}
+
+void grid::setRandomShape(RandomShape* rndm)
+{
+	RandShape = rndm;
+}
+
+void grid::countSteps(shape* avtv)
+{
+	int steps = 0;
+}

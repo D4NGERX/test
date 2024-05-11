@@ -44,8 +44,7 @@ void game::clearStatusBar() const
 	pWind->DrawRectangle(0, config.windHeight - config.statusBarHeight, config.windWidth, config.windHeight);
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////
-//Draws the menu (toolbar) in the mode
+
 void game::createToolBar()
 {
 	gameToolbar = new toolbar(this);
@@ -62,6 +61,7 @@ void game::createGrid()
 
 operation* game::createRequiredOperation(toolbarItem clickedItem)
 {
+	// int steps = 0;
 	operation* op=nullptr;
 	switch (clickedItem)
 	{
@@ -86,7 +86,6 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 }
 
 
-//////////////////////////////////////////////////////////////////////////////////////////
 
 void game::printMessage(string msg) const	//Prints a message on status bar
 {
@@ -138,35 +137,34 @@ grid* game::getGrid() const
 
 
 
-////////////////////////////////////////////////////////////////////////
+
+Levels* game::getLevel()
+{
+	return lvl;
+}
+
+void game::setLevel(Levels* level)
+{
+	lvl = level;
+}
+
 void game::run() 
 {
-	//This function reads the position where the user clicks to determine the desired operation
 	int x, y;
 	bool isExit = false;
-
-	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
 	toolbarItem clickedItem=ITM_CNT;
 	
 	do
 	{
-		pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
-
-		//2-Explain the user click
-		//If user clicks on the Toolbar, ask toolbar which item is clicked
+		pWind->WaitMouseClick(x, y);	
 		if (y >= 0 && y < config.toolBarHeight)
 		{
 			clickedItem=gameToolbar->getItemClicked(x);
-
-			//3-create the approp operation accordin to item clicked by the user
 			operation* op = createRequiredOperation(clickedItem);
 			if (op)
 				op->Act();
-
-			//4-Redraw the grid after each action
 			shapesGrid->draw();
-			//shapesGrid->getActiveShape()->calcCorners();
 			pWind->FlushMouseQueue();
 			pWind->FlushKeyQueue();
 
@@ -182,7 +180,6 @@ void game::run()
 
 				keytype ktinput;
 				char anotherKey;
-				//operMove* pMove = nullptr;
 				pWind->FlushMouseQueue();
 				pWind->FlushKeyQueue();
 

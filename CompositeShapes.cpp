@@ -12,12 +12,11 @@ Sign::Sign(game* r_pGame, point ref):shape(r_pGame, ref)
 	base = new Rect(pGame, baseRef, config.sighShape.baseHeight, config.sighShape.baseWdth);
 	
 }
-#include <iostream>
+
 void Sign::draw()
 {
 	base->draw();
 	top->draw();
-	std::cout << "drawn" << endl;
 }
 
 void Sign::calcCorners()
@@ -35,7 +34,10 @@ void Sign::rotate()
 	top->rotate();
 	base->getLowerBottom()->rotate(topRef);
 	base->getUpperLeft()->rotate(topRef);
-	
+	if (iRotationAngle < 360)
+		iRotationAngle += 90;
+	else
+		iRotationAngle = 0;
 }
 
 void Sign::flip()
@@ -54,4 +56,12 @@ void Sign::resize()
 	base->getLowerBottom();
 	base->getUpperLeft();
 	calcCorners();
+}
+
+bool Sign::isExceeded()
+{
+	if (top->isExceeded() == true || base->isExceeded() == true)
+		return true;
+	else
+		return false;
 }

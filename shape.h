@@ -25,7 +25,7 @@ struct point
 		x1 += ref.x;
 		y1 += ref.y;
 		bool what = isItExceeded(x1, y1);
-		if (isItExceeded(x1,y1) == false) {
+		if (isItExceeded(x1, y1) == false) {
 			x -= ref.x;
 			y -= ref.y;
 
@@ -62,9 +62,9 @@ struct point
 
 	}
 
-	bool isItExceeded(int x,int y)
+	bool isItExceeded(int xs, int ys)
 	{
-		if (x > config.windWidth || x < 0 || y < 0 || y > config.windHeight)
+		if (xs > config.windWidth || xs < 0 || ys < 0 || ys > config.windHeight)
 			return true;
 		else
 			return false;
@@ -75,7 +75,15 @@ enum ShapeType
 {
 	RCT,
 	SIGN,
-	//ShapeEnd,  // this must be the last one in the enum
+	ShapeEnd,  // this must be the last one in the enum
+};
+
+enum ShapeOperations
+{
+	Rotate,
+	Resize,
+	OperationEnds,
+
 };
 
 //Base class for all shapes including Basic shapes, Composite shapes
@@ -86,7 +94,9 @@ protected:
     game* pGame;        //pointer to game object
 	color fillColor;	//shape fill color
 	color borderColor;	//shape border color
-	//int iRotationAngle = 0;
+	int iRotationAngle = 0;
+	int iResizeCalls = 0;
+	//int iRotationCalls = 0;
 public:
     shape(game* r_pGame, point ref);
     virtual void draw() = 0;//for a shape to draw itself on the screen
@@ -94,10 +104,13 @@ public:
 	virtual void calcCorners() = 0;
 	virtual void rotate() = 0;
 	virtual void move(bool isVertical);
-	//virtual bool isExceeded() = 0;
+	virtual bool isExceeded() = 0;
+	//virtual point* getBoundaryBox() = 0;
 	virtual void flip() = 0;
 	virtual void resize() = 0;
-							  
+	int getRotationAngle();
+	int getNumberOfResizeCalls();
+	//int getNumberOfRotationCalls();
 	//-- The following functions should be supported by the shape class
 	//-- It should be overridden by each inherited shape
 	//-- Decide the parameters that you should pass to each function	

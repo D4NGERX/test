@@ -98,10 +98,13 @@ void operResize::Act()
 	pGrid->getActiveShape()->resize();
 }
 
-//BuildRandomShape::BuildRandomShape(game* r_pGame) : operation(r_pGame)
-//{}
-//
-//void BuildRandomShape::Act()
-//{
-//
-//}
+BuildRandomShape::BuildRandomShape(game* r_pGame) : operation(r_pGame)
+{}
+
+void BuildRandomShape::Act()
+{
+	grid* pGrid = pGame->getGrid();
+	RandomShape* rndmShape = new RandomShape(pGame, 1);
+	pGrid->setRandomShape(rndmShape);
+
+}

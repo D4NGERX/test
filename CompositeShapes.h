@@ -15,6 +15,6 @@ public:
 	virtual void calcCorners() override;
 	virtual void flip() override;
 	virtual void resize() override;
-
+	virtual bool isExceeded() override;
 };
 

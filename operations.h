@@ -61,9 +61,10 @@ public:
 	virtual void Act();
 };
 
-//class BuildRandomShape : public operation
-//{
-//public:
-//	BuildRandomShape(game* r_pGame);
-//	virtual void Act() override;
-//};
+class BuildRandomShape : public operation
+{
+public:
+	BuildRandomShape(game* r_pGame);
+	virtual void Act() override;
+};
+

@@ -19,16 +19,12 @@ void Rect::draw()
 	window* pW = pGame->getWind();	//get interface window
 	pW->SetPen(config.penColor, config.penWidth);
 	pW->SetBrush(config.fillColor);
-	//calcCorners();
 	pW->DrawRectangle(upperLeft.x, upperLeft.y, lowerBottom.x, lowerBottom.y, FILLED);
 }
 
 
 void Rect::calcCorners()
 {
-	
-	//setRefPoint(RefPoint);
-	
 	upperLeft.x = RefPoint.x - wdth / 2;
 	upperLeft.y = RefPoint.y - hght / 2;
 	lowerBottom.x = RefPoint.x + wdth / 2;
@@ -42,7 +38,10 @@ void Rect::rotate()
 	
 	lowerBottom.rotate(RefPoint);
 	upperLeft.rotate(RefPoint);
-	
+	if (iRotationAngle < 360)
+		iRotationAngle += 90;
+	else
+		iRotationAngle = 0;
 }
 
 void Rect::flip()
@@ -54,16 +53,25 @@ void Rect::flip()
 
 void Rect::resize()
 {
-	//calcCorners();
-	wdth = wdth * 1.15;
-	hght = hght * 1.15;
-	calcCorners();
+	if (iResizeCalls < 4) {
+		wdth = int(wdth * 1.15);
+		hght = int(hght * 1.15);
+		calcCorners();
+		iResizeCalls++;
+	}
+	else
+		return;
 }
 
 point* Rect::getUpperLeft() { return &upperLeft; }
 point* Rect::getLowerBottom() { return &lowerBottom; }
 
-//bool Rect::isExceeded()
-//{
-//	
-//}
+bool Rect::isExceeded()
+{
+	if (lowerBottom.isItExceeded(lowerBottom.x, lowerBottom.y) == true
+		|| upperLeft.isItExceeded(upperLeft.x, upperLeft.y) == true)
+		return true;
+	else
+		return false;
+
+}

@@ -17,8 +17,12 @@ void shape::setRefPoint(point p)
 
 void shape::move(bool isVertical)
 {
-	RefPoint.move(isVertical); // RefPoint = 30, ==> move ==> RefPoint = 60;
-	//draw();
-	calcCorners();
-	//setRefPoint(RefPoint);
+	if (isExceeded() == false) {
+		RefPoint.move(isVertical); // RefPoint = 30, ==> move ==> RefPoint = 60;
+		calcCorners();
+	}
+	else
+		return;
 }
+
+int shape::getRotationAngle() { return iRotationAngle; }

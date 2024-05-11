@@ -13,7 +13,7 @@ class grid
 
 	
 	shape* shapeList[MaxShapeCount];
-	//shape* RandomShape;
+	RandomShape* RandShape;
 	shape* activeShape;	//The shape that the user works on to match to the ranom shapes
 	//RandomShape* rndmShape;
 	int shapeCount;		//current number of shapes in the list
@@ -26,5 +26,8 @@ public:
 	bool addShape(shape* newShape);
 	void setActiveShape(shape* actShape);
 	shape* getActiveShape() const;
+	void deleteActiveShape();
+	void setRandomShape(RandomShape* rndm);
+	void countSteps(shape* actv);
 };
 
