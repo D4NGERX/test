@@ -43,7 +43,7 @@ public:
 	//creates an operation according to the toolbar item clicked
 	operation* createRequiredOperation(toolbarItem clickedItem);
 	Levels* getLevel();
-	void setLevel(Levels* level);
+	void setLevel(Levels level);
 
 	void run();	//start the game
 

@@ -54,9 +54,10 @@ void Rect::flip()
 void Rect::resize()
 {
 	if (iResizeCalls < 4) {
-		wdth = int(wdth * 1.15);
-		hght = int(hght * 1.15);
+		wdth = int(wdth * 2);
+		hght = int(hght * 2);
 		calcCorners();
+		//ReCalcRefPoint();
 		iResizeCalls++;
 	}
 	else
@@ -65,7 +66,13 @@ void Rect::resize()
 
 point* Rect::getUpperLeft() { return &upperLeft; }
 point* Rect::getLowerBottom() { return &lowerBottom; }
-
+void Rect::ReCalcRefPoint()
+{
+	RefPoint.x = upperLeft.x + wdth / 2;
+	RefPoint.y = upperLeft.x + hght / 2;
+	std::cout << "Ref" << RefPoint << " " << "\n";
+	//std::cout << "Ref.y: " << RefPoint.y << " ";
+}
 bool Rect::isExceeded()
 {
 	if (lowerBottom.isItExceeded(lowerBottom.x, lowerBottom.y) == true
@@ -74,4 +81,19 @@ bool Rect::isExceeded()
 	else
 		return false;
 
+}
+
+void Rect::move(int step, bool isVertical)
+{
+	//if (isExceeded() == false) {
+		lowerBottom.move(step, isVertical);
+		upperLeft.move(step, isVertical);
+		RefPoint.move(step, isVertical); // RefPoint = 30, ==> move ==> RefPoint = 60;
+		calcCorners();
+	//}
+	/*else
+	{
+		lowerBottom = lowerBottom;
+		upperLeft = upperLeft;
+	}*/
 }

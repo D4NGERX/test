@@ -98,10 +98,6 @@ void grid::deleteActiveShape()
 	}
 }
 
-void grid::setRandomShape(RandomShape* rndm)
-{
-	RandShape = rndm;
-}
 
 void grid::countSteps(shape* avtv)
 {

@@ -1,4 +1,3 @@
-
 #pragma once
 #include "shape.h"
 
@@ -18,8 +17,10 @@ public:
 	virtual void resize();
 	point* getUpperLeft();
 	point* getLowerBottom(); // base.upperLeft.move()
-	
-
+	virtual void ReCalcRefPoint() override;
+	virtual void move(int step, bool isVertical) override;
+	void getWidth();
+	void getHieght();
 };
 
 

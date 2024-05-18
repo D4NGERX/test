@@ -166,7 +166,6 @@
     <ClCompile Include="CMUgraphicsLib\jpeg\jutils.c" />
     <ClCompile Include="CompositeShapes.cpp" />
     <ClCompile Include="operations.cpp" />
-    <ClCompile Include="RandomShape.cpp" />
     <ClCompile Include="shape.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="grid.cpp">
@@ -199,7 +198,6 @@
     <ClInclude Include="CMUgraphicsLib\jpeg\jversion.h" />
     <ClInclude Include="CompositeShapes.h" />
     <ClInclude Include="operations.h" />
-    <ClInclude Include="RandomShape.h" />
     <ClInclude Include="shape.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameConfig.h" />

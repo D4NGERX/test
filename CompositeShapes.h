@@ -16,5 +16,7 @@ public:
 	virtual void flip() override;
 	virtual void resize() override;
 	virtual bool isExceeded() override;
+	virtual void ReCalcRefPoint() override;
+	virtual void move(int step, bool isVertical) override;
 };
 

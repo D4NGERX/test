@@ -21,11 +21,11 @@ void Sign::draw()
 
 void Sign::calcCorners()
 {
-	
-	topRef = RefPoint;
-	baseRef = { RefPoint.x, RefPoint.y + config.sighShape.topHeight / 2 + config.sighShape.baseHeight / 2 };
 	top->calcCorners();
 	base->calcCorners();
+	topRef = RefPoint;
+	baseRef = { RefPoint.x, RefPoint.y + config.sighShape.topHeight / 4 + config.sighShape.baseHeight / 4 };
+	
 	
 }
 
@@ -51,11 +51,13 @@ void Sign::resize()
 {
 	top->resize();
 	base->resize();
-	top->getLowerBottom();
-	top->getUpperLeft();
-	base->getLowerBottom();
-	base->getUpperLeft();
 	calcCorners();
+	//ReCalcRefPoint();
+}
+
+void Sign::ReCalcRefPoint()
+{
+	//baseRef = topRef + 0.5*
 }
 
 bool Sign::isExceeded()
@@ -64,4 +66,14 @@ bool Sign::isExceeded()
 		return true;
 	else
 		return false;
+}
+
+void Sign::move(int step, bool isVertical)
+{
+	if (isExceeded() == false) {
+		RefPoint.move(step, isVertical); // RefPoint = 30, ==> move ==> RefPoint = 60;
+		calcCorners();
+	}
+	else
+		return;
 }

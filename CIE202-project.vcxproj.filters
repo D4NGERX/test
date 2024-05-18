@@ -124,9 +124,6 @@
     <ClCompile Include="operations.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
-    <ClCompile Include="RandomShape.cpp">
-      <Filter>Shapes</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -206,9 +203,6 @@
     </ClInclude>
     <ClInclude Include="operations.h">
       <Filter>Operations</Filter>
-    </ClInclude>
-    <ClInclude Include="RandomShape.h">
-      <Filter>Shapes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

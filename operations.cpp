@@ -37,8 +37,6 @@ void operRotate::Act()
 	window* pRotate = pGame->getWind();
 	grid* pGrid = pGame->getGrid();
 	pGrid->getActiveShape()->rotate();
-	//pGrid->getActiveShape()->calcCorners();
-	//pGrid->draw();
 }
 
 
@@ -57,21 +55,26 @@ void AddRect::Act()
 }
 
 
-operMove::operMove(game* r_pGame) : operation(r_pGame)
+operMove::operMove(game* r_pGame, int stp) : operation(r_pGame)
 {
-
+	step = stp;
 }
 
 void operMove::Act()
 {
 	//window* pWind = pGame->getWind();
 	grid* pGrid = pGame->getGrid();
-	pGrid->getActiveShape()->move(isVertical);
+	pGrid->getActiveShape()->move(step, isVertical);
 }
 
 void operMove::isItVertical(bool isIt)
 {
 	isVertical = isIt;
+}
+
+void operMove::moveStep(int stp)
+{
+	step = stp;
 }
 
 operFlip::operFlip(game* r_pGame) : operation(r_pGame)
@@ -98,13 +101,5 @@ void operResize::Act()
 	pGrid->getActiveShape()->resize();
 }
 
-BuildRandomShape::BuildRandomShape(game* r_pGame) : operation(r_pGame)
-{}
 
-void BuildRandomShape::Act()
-{
-	grid* pGrid = pGame->getGrid();
-	RandomShape* rndmShape = new RandomShape(pGame, 1);
-	pGrid->setRandomShape(rndmShape);
 
-}

@@ -18,6 +18,7 @@ game::game()
 
 	//Create and clear the status bar
 	clearStatusBar();
+
 }
 
 game::~game()
@@ -143,9 +144,9 @@ Levels* game::getLevel()
 	return lvl;
 }
 
-void game::setLevel(Levels* level)
+void game::setLevel(Levels level)
 {
-	lvl = level;
+	lvl = new Levels(level);
 }
 
 void game::run() 
@@ -154,7 +155,7 @@ void game::run()
 	bool isExit = false;
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
 	toolbarItem clickedItem=ITM_CNT;
-	
+	setLevel(LVL1);
 	do
 	{
 		pWind->WaitMouseClick(x, y);	
@@ -183,7 +184,7 @@ void game::run()
 				pWind->FlushMouseQueue();
 				pWind->FlushKeyQueue();
 
-
+				int step = config.gridSpacing;
 				ktinput = pWind->WaitKeyPress(anotherKey);
 				operMove* pMove = new operMove(this);
 				if (ktinput == ARROW) {
@@ -192,24 +193,28 @@ void game::run()
 					case 2: // down
 						isItVertical = true;
 						pMove->isItVertical(isItVertical);
+						pMove->moveStep(step);
 						pMove->Act();
 						stillMoving = true;
 						break;
 					case 4: // Left
 						isItVertical = false;
 						pMove->isItVertical(isItVertical);
+						pMove->moveStep(-step);
 						pMove->Act();
 						stillMoving = true;
 						break;
 					case 6: // right
 						isItVertical = false;
 						pMove->isItVertical(isItVertical);
+						pMove->moveStep(step);
 						pMove->Act();
 						stillMoving = true;
 						break;
 					case 8: //up
 						isItVertical = true;
 						pMove->isItVertical(isItVertical);
+						pMove->moveStep(-step);
 						pMove->Act();
 						stillMoving = true;
 						break;

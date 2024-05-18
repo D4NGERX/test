@@ -15,14 +15,15 @@ void shape::setRefPoint(point p)
 	RefPoint = p;
 }
 
-void shape::move(bool isVertical)
-{
-	if (isExceeded() == false) {
-		RefPoint.move(isVertical); // RefPoint = 30, ==> move ==> RefPoint = 60;
-		calcCorners();
-	}
-	else
-		return;
-}
+//void shape::move(int step, bool isVertical)
+//{
+//	if (isExceeded() == false) {
+//		RefPoint.move(step, isVertical); // RefPoint = 30, ==> move ==> RefPoint = 60;
+//		calcCorners();
+//	}
+//	else
+//		return;
+//}
 
 int shape::getRotationAngle() { return iRotationAngle; }
+int shape::getNumberOfResizeCalls() { return iResizeCalls; }

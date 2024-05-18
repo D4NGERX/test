@@ -1,9 +1,18 @@
 #pragma once
+#include <iostream>
 #include <string>
 using namespace std;
 #include "CMUgraphicsLib\CMUgraphics.h"
 #include "gameConfig.h"
 class game;     //forward declaration
+
+enum BoundaryViolationImage
+{
+	X_isExceedingRight,
+	X_isExceedingLeft,
+	Y_isExceedingUp,
+	Y_isExceedingDown,
+};
 
 struct point
 {
@@ -39,19 +48,29 @@ struct point
 		else
 			return;
 	}
-	void move(bool isVertical)
+	void move(int step, bool isVertical)
 	{
+		BoundaryViolationImage bviDetector;
 		int x1 = x, y1 = y;
 		x1 += config.gridSpacing; y1 += config.gridSpacing;
 		
 		if (isItExceeded(x1, y1) == false) {
 			if (isVertical == false)
-				x += config.gridSpacing; //int = 30;
+				x += step; //int = 30;
 			else if(isVertical == true)
-				y += config.gridSpacing;
+				y += step;
 		}
 		else
-			return;
+		{
+			if (x1 > config.windWidth)
+				x -= config.gridSpacing;
+			if (x1 < 30)
+				x += config.gridSpacing;
+			if (y1 > 500)
+				y -= config.gridSpacing;
+			if (y1 < 100)
+				y += config.gridSpacing;
+		}
 	}
 
 	void flip(point pnt)
@@ -64,10 +83,16 @@ struct point
 
 	bool isItExceeded(int xs, int ys)
 	{
-		if (xs > config.windWidth || xs < 0 || ys < 0 || ys > config.windHeight)
+		if (xs > config.windWidth || xs < 0 || ys < config.toolBarHeight || ys > config.windHeight - config.statusBarHeight)
 			return true;
 		else
 			return false;
+	}
+
+	friend std::ostream& operator <<(std::ostream& out, const point &other)
+	{
+		out << "x: " << other.x << " " << "y: " << other.y;
+		return out;
 	}
 };
 
@@ -103,21 +128,15 @@ public:
 	void setRefPoint(point p);
 	virtual void calcCorners() = 0;
 	virtual void rotate() = 0;
-	virtual void move(bool isVertical);
+	virtual void move(int step, bool isVertical) = 0;
 	virtual bool isExceeded() = 0;
 	//virtual point* getBoundaryBox() = 0;
 	virtual void flip() = 0;
 	virtual void resize() = 0;
-	int getRotationAngle();
-	int getNumberOfResizeCalls();
-	//int getNumberOfRotationCalls();
-	//-- The following functions should be supported by the shape class
-	//-- It should be overridden by each inherited shape
-	//-- Decide the parameters that you should pass to each function	
-
-	//Rotate the shape
-	//virtual void resize() = 0;	//Resize the shape
-	//virtual void move() = 0;		//Move the shape
+	virtual int getRotationAngle();
+	virtual int getNumberOfResizeCalls();
+	virtual void ReCalcRefPoint() = 0;
+	
 	//virtual void save(ofstream &OutFile) = 0;	//Save the shape parameters to the file
 	//virtual void load(ifstream &Infile) = 0;	//Load the shape parameters to the file
 

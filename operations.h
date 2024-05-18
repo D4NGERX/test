@@ -37,13 +37,13 @@ public:
 
 class operMove : public operation
 {
-	//int step = config.gridSpacing;
 	bool isVertical;
+	int step;
 public:
-	operMove(game* r_pGame);
+	operMove(game* r_pGame, int stp = 0);
 	virtual void Act();
 	void isItVertical(bool isIt); // set isVertical
-	
+	void moveStep(int stp);
 };
 
 
@@ -61,10 +61,4 @@ public:
 	virtual void Act();
 };
 
-class BuildRandomShape : public operation
-{
-public:
-	BuildRandomShape(game* r_pGame);
-	virtual void Act() override;
-};
 
